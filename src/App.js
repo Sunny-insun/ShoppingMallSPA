@@ -14,6 +14,26 @@ export default class App{
     }
 
     async initData(){
+
+        //뒤로가기 아이템유지..
+        window.onpopstate = async function(event) {  //뒤로가기 이벤트를 캐치합니다.
+          console.log("onpopstate state == " + JSON.stringify(event.state))
+            if(!event.state){
+                window.location.reload();
+                return
+            }
+           
+            if(event.state.page == 'productDetailPage'){
+                const root = document.getElementById("App")
+                root.innerHTML = '';
+                new ProductDetailPage(root, event.state.data)
+            }
+            
+            if(event.state.page == "productListPage"){
+                window.location.reload()
+            }
+        };
+
         await api.fetchProductList().then((response) => {
             this.$productList = response
         })

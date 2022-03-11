@@ -31,7 +31,10 @@ export default class ProductDetailInfo {
 
     setOption(){
         const root = document.createElement("select")
-        
+        const defaultOption = document.createElement("option")
+        defaultOption.textContent ="선택하세요"
+        root.appendChild(defaultOption)
+
         this.$data.productOptions.forEach((item) => {
             const element = document.createElement("option")
             element.value = JSON.stringify(item)

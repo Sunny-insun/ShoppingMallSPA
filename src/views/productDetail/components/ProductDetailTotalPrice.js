@@ -9,6 +9,8 @@ export default class ProductDetailTotalPrice {
         this.$productDetailTotalPrice = productDetailTotalPrice
         this.$target.appendChild(this.$productDetailTotalPrice)
     }
+
+    
     changePrice(price){
         this.$price = price
         this.$productDetailTotalPrice.textContent = this.$price + "원"
