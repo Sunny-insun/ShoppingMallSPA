@@ -1,3 +1,5 @@
+import ProductDetailSelectedOptions from "./ProductDetailSelectedOptions.js"
+
 export default class ProductDetailInfo {
     $target = null
     $data = null
@@ -29,8 +31,11 @@ export default class ProductDetailInfo {
 
     setOption(){
         const root = document.createElement("select")
+        
         this.$data.productOptions.forEach((item) => {
             const element = document.createElement("option")
+            element.value = JSON.stringify(item)
+
             let content = ''
             if(item.stock === 0){
                 content = `(품절) ${this.$data.name} ${item.name}`
@@ -45,6 +50,17 @@ export default class ProductDetailInfo {
             root.appendChild(element)
         })
         this.$productDetailInfo.appendChild(root)
+        this.$productDetailSelectedOptions = new ProductDetailSelectedOptions(this.$productDetailInfo, this.$data)
+        root.addEventListener("change", (e)=>{
+            this.onChangeCallback(e.target.value)
+        })
+    }
+
+
+    //changeCallback
+    onChangeCallback(item){
+       item = JSON.parse(item)
+       this.$productDetailSelectedOptions.addItem(item)
     }
 
     // productOptions": [
